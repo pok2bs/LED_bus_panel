@@ -8,5 +8,6 @@ setup(
 	description='Seoul bus LED panel library',
 	url='https://github.com/hletrd/LED_bus_panel',
 	packages=['xylopanel', 'bus'],
+    package_data={'bus': ['font.png', 'font.txt']},
 	install_requires=['Pillow', 'numpy'],
 )
