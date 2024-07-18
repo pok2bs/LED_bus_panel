@@ -9,8 +9,8 @@ panel.clear()
 
 buspanel.add_bus('5511', time=10, lowdeck=True) #저상버스
 buspanel.add_bus('5513', time=15)
-buspanel.add_bus('5511', time=xylopanel.BusPanel.end) #종료
-buspanel.add_bus('5516', time=xylopanel.BusPanel.depot) #차고지
+buspanel.add_bus('5511', time=bus.BusPanel.end) #종료
+buspanel.add_bus('5516', time=bus.BusPanel.depot) #차고지
 
 buspanel.add_arrive('750A', density=2) #곧도착, 혼잡
 buspanel.add_arrive('750B', density=1) #곧도착, 보통
