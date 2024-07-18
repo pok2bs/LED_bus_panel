@@ -56,7 +56,7 @@ class Panel:
 			self.options.cols = 64
 			self.options.chain_length = 6
 			self.options.parallel = 1
-			self.options.hardware_mapping = 'reqular'
+			self.options.hardware_mapping = 'regular'
 			self.options.gpio_slowdown = 4
 			self.options.disable_hardware_pulsing = True
 
