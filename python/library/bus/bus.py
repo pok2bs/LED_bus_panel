@@ -1,3 +1,4 @@
+import sys
 try:
 	from PIL import Image, ImageFont, ImageDraw
 except:
