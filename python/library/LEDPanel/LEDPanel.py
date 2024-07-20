@@ -24,16 +24,18 @@ except:
 class Matrix():
 	def __init__(self, options, emul_use=EMULATE_ABLE):
 		self.options = options
-		self.select_matrix_module(emul_use)
+		self.matrix = rgbmatrix.RGBMatrix(self.options)
 
 	def select_matrix_module(self, emul_use):
 		if emul_use:
-			matrix =  RGBMatrixEmulator.RGBMatrix(self.options)
+			self.matrix =  RGBMatrixEmulator.RGBMatrix(self.options)
 		else:
 			print(1)
+			print(type(self.options))
+			print(self.options.rows)
 			self.matrix =  rgbmatrix.RGBMatrix(self.options)
 			print(2)
-			
+
 	def set_image(self, image, offset = tuple):
 		self.matrix.SetImage(image, offset_x=offset[0], offset_y=offset[1])
 
