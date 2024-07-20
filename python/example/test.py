@@ -2,7 +2,7 @@ import bus
 import xylopanel
 
 buspanel = bus.BusPanel()
-panel = xylopanel.Panel()
+panel = xylopanel.Panel(debug=True)
 
 buspanel.clear()
 panel.clear()
