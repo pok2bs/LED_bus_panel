@@ -29,7 +29,8 @@ class Matrix():
 	def __init__(self, options, debug_mode=False):
 		self.options = options
 		print(1)
-		self.set_debug(debug_mode)
+		self.matrix = rgbmatrix.RGBMatrix(self.options)
+		print(3)
 
 	def set_debug(self, debug_mode):
 		if debug_mode:
