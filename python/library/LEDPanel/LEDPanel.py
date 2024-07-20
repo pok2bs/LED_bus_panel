@@ -33,8 +33,7 @@ class Matrix():
 			print(1)
 			self.matrix =  rgbmatrix.RGBMatrix(self.options)
 			print(2)
-		return matrix
-
+			
 	def set_image(self, image, offset = tuple):
 		self.matrix.SetImage(image, offset_x=offset[0], offset_y=offset[1])
 
