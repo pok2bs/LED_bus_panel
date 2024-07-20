@@ -1,7 +1,7 @@
 from PIL import Image
 from PIL import ImageDraw
 import time
-from library.LEDPanel.LEDPanel import Matrix, MatrixOption
+from LEDPanel.LEDPanel import Matrix, MatrixOption
 # Configuration for the matrix
 optioner = MatrixOption()
 optioner.set_panel_size((64, 32))
