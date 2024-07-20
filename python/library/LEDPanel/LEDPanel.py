@@ -28,15 +28,16 @@ except:
 class Matrix():
 	def __init__(self, options, debug_mode=False):
 		self.options = options
+		print(type(self.options))
 		print(1)
-		self.matrix = rgbmatrix.RGBMatrix(self.options)
+		self.matrix = rgbmatrix.RGBMatrix(rgbmatrix.RGBMatrixOptions())
 		print(3)
 
 	def set_debug(self, debug_mode):
 		if debug_mode:
 			self.matrix = RGBMatrixEmulator.RGBMatrix(self.options)
 		else:
-			self.matrix = rgbmatrix.RGBMatrix(self.options)
+			self.matrix = rgbmatrix.RGBMatrix(options=self.options)
 			print(2)
 
 	def set_image(self, image, offset = tuple):
@@ -60,7 +61,7 @@ class MatrixOption():
 		self.gpio_slowdown = 2
 		self.disable_hardware_pulsing = False
 
-	def set_debug(self, debug_mode):
+	def set_debug(self, debug_mode=False):
 		if debug_mode:
 			self.option = RGBMatrixEmulator.RGBMatrixOptions()
 		else:

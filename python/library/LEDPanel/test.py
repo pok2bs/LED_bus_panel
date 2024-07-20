@@ -9,9 +9,10 @@ print(3)
 optioner = MatrixOption(debug_mode=False)
 optioner.set_panel_size((64, 32))
 optioner.set_for_rpi_4()
+options = optioner.get_option()
 print(4)
 
-matrix = Matrix(optioner.get_option(), debug_mode=False)
+matrix = Matrix(options=options, debug_mode=False)
 print(5)
 # RGB example w/graphics prims.
 # Note, only "RGB" mode is supported currently.
