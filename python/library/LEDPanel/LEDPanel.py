@@ -28,6 +28,7 @@ except:
 class Matrix():
 	def __init__(self, options, debug_mode=False):
 		self.options = options
+		print(1)
 		self.set_debug(debug_mode)
 
 	def set_debug(self, debug_mode):
@@ -35,6 +36,7 @@ class Matrix():
 			self.matrix = RGBMatrixEmulator.RGBMatrix(self.options)
 		else:
 			self.matrix = rgbmatrix.RGBMatrix(self.options)
+			print(2)
 
 	def set_image(self, image, offset = tuple):
 		self.matrix.SetImage(image, offset_x=offset[0], offset_y=offset[1])
