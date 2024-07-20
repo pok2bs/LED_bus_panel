@@ -30,7 +30,7 @@ class Matrix():
 		self.options = options
 		print(type(self.options))
 		print(1)
-		self.matrix = rgbmatrix.RGBMatrix(rgbmatrix.RGBMatrixOptions())
+		self.set_debug(debug_mode)
 		print(3)
 
 	def set_debug(self, debug_mode):
