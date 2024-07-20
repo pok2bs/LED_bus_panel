@@ -30,7 +30,9 @@ class Matrix():
 		if emul_use:
 			matrix =  RGBMatrixEmulator.RGBMatrix(self.options)
 		else:
+			print(1)
 			matrix =  rgbmatrix.RGBMatrix(self.options)
+			print(2)
 		return matrix
 
 	def set_image(self, image, offset = tuple):
