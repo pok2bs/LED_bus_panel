@@ -3,9 +3,10 @@ from PIL import ImageDraw
 import time
 from LEDPanel import Matrix, MatrixOptionFile
 # Configuration for the matrix
-
-option_file = MatrixOptionFile()
-matrix = Matrix(option_file.get_options())
+print(1)
+option_file = MatrixOptionFile(emul_use=False)
+print(2)
+matrix = Matrix(option_file.get_options(), emul_use=False)
 # RGB example w/graphics prims.
 # Note, only "RGB" mode is supported currently.
 image = Image.new("RGB", (32, 32))  # Can be larger than matrix if wanted!!
@@ -17,8 +18,8 @@ draw.line((0, 31, 31, 0), fill=(0, 255, 0))
 # Then scroll image across matrix...
 matrix.draw_image(image, offset=(0, 0))
 time.sleep(10)
-
 for n in range(-32, 33):  # Start off top-left, move off bottom-right
     matrix.draw_image(image, offset=(n, n))
     time.sleep(0.05)
 matrix.clear()
+print(3)
