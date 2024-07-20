@@ -5,11 +5,11 @@ print(1)
 from LEDPanel import Matrix, MatrixOption
 print(2)
 # Configuration for the matrix
-optioner = MatrixOption(debug_mode=True)
+optioner = MatrixOption(debug_mode=False)
 optioner.set_panel_size((64, 32))
 optioner.set_for_rpi_4()
 
-matrix = Matrix(optioner.get_option(), debug_mode=True)
+matrix = Matrix(optioner.get_option(), debug_mode=False)
 
 # RGB example w/graphics prims.
 # Note, only "RGB" mode is supported currently.
