@@ -24,7 +24,7 @@ except:
 class Matrix():
 	def __init__(self, options, emul_use=EMULATE_ABLE):
 		self.options = options
-		self.matrix = self.select_matrix_module(emul_use)
+		self.select_matrix_module(emul_use)
 
 	def select_matrix_module(self, emul_use):
 		if emul_use:
