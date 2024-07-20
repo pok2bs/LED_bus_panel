@@ -31,7 +31,7 @@ class Matrix():
 			matrix =  RGBMatrixEmulator.RGBMatrix(self.options)
 		else:
 			print(1)
-			matrix =  rgbmatrix.RGBMatrix(self.options)
+			self.matrix =  rgbmatrix.RGBMatrix(self.options)
 			print(2)
 		return matrix
 
