@@ -4,7 +4,8 @@ import time
 from LEDPanel import Matrix, MatrixOptionFile
 # Configuration for the matrix
 
-matrix = Matrix()
+option_file = MatrixOptionFile()
+matrix = Matrix(option_file.get_options())
 # RGB example w/graphics prims.
 # Note, only "RGB" mode is supported currently.
 image = Image.new("RGB", (32, 32))  # Can be larger than matrix if wanted!!

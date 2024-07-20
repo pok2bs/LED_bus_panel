@@ -26,7 +26,7 @@ class Matrix():
 		self.options = options
 		self.matrix = self.select_matrix_module(emul_use)
 
-	def select_matrix_module(self, emul_use) -> RGBMatrixEmulator.RGBMatrixOptions:
+	def select_matrix_module(self, emul_use):
 		if emul_use:
 			return RGBMatrixEmulator.RGBMatrix(self.options)
 		else:
@@ -57,7 +57,7 @@ class MatrixOptionFile():
 			self.save_options()
 
 
-	def select_option_module(self, emul_use) -> RGBMatrixEmulator.RGBMatrixOptions:
+	def select_option_module(self, emul_use):
 		if emul_use:
 			return RGBMatrixEmulator.RGBMatrixOptions()
 		else:
@@ -76,7 +76,7 @@ class MatrixOptionFile():
 	def set_path(self, path):
 		self.path = path
 	
-	def get_options(self) -> RGBMatrixEmulator.RGBMatrixOptions:
+	def get_options(self):
 		return self.options
 
 	def convert_dict_to_option(self):
