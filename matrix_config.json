@@ -1,0 +1,14 @@
+{
+	"brightness": 100,
+	"chain_length": 1,
+	"cols": 64,
+	"disable_hardware_pulsing": false,
+	"gpio_slowdown": 0,
+	"hardware_mapping": "regular",
+	"led_rgb_sequence": "RGB",
+	"multiplexing": 0,
+	"parallel": 1,
+	"pwm_bits": 11,
+	"row_address_type": 1,
+	"rows": 32
+}

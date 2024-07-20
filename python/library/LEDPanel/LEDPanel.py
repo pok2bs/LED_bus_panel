@@ -1,14 +1,10 @@
-import sys
-
-debug_able = False
+import sys, json, random, colorsys
 
 try:
 	from PIL import Image, ImageFont, ImageDraw
 except:
 	sys.stderr.write('Pillow is not installed.\n')
 
-import colorsys
-import random
 try:
 	import numpy as np
 except:
@@ -21,20 +17,20 @@ except:
 
 try:
 	import RGBMatrixEmulator 
-	debug_able = True
+	EMULATE_ABLE = True
 except:
-	debug_able = False	
+	EMULATE_ABLE = False	
 
 class Matrix():
-	def __init__(self, options, debug_mode=False):
+	def __init__(self, options, emul_use=EMULATE_ABLE):
 		self.options = options
-		self.set_debug(debug_mode)
+		self.matrix = self.select_matrix_module(emul_use)
 
-	def set_debug(self, debug_mode):
-		if debug_mode:
-			self.matrix = RGBMatrixEmulator.RGBMatrix(self.options)
+	def select_matrix_module(self, emul_use) -> RGBMatrixEmulator.RGBMatrixOptions:
+		if emul_use:
+			return RGBMatrixEmulator.RGBMatrix(self.options)
 		else:
-			self.matrix = rgbmatrix.RGBMatrix(options=self.options)
+			return rgbmatrix.RGBMatrix(self.options)
 
 	def set_image(self, image, offset = tuple):
 		self.matrix.SetImage(image, offset_x=offset[0], offset_y=offset[1])
@@ -46,55 +42,86 @@ class Matrix():
 	def clear(self):
 		self.matrix.Clear()
 
-class MatrixOption():
-	def __init__(self, debug_mode=False):
-		self.set_debug(debug_mode)
-		self.brightness = 100
-		self.cols = 32
-		self.rows = 32
-		self.chain_length = 1
-		self.hardware_mapping = 'regular'
-		self.gpio_slowdown = 2
-		self.disable_hardware_pulsing = False
+class MatrixOptionFile():
+	def __init__(self, path=r"matrix_config.json", emul_use=EMULATE_ABLE):
+		self.path = path
+		self.options = self.select_option_module(emul_use)
+		self.data = dict()
+		self.try_load()
 
-	def set_debug(self, debug_mode=False):
-		if debug_mode:
-			self.option = RGBMatrixEmulator.RGBMatrixOptions()
+	def try_load(self):
+		try:
+			self.load_options()
+		except:
+			self.set_default_options()
+			self.save_options()
+
+
+	def select_option_module(self, emul_use) -> RGBMatrixEmulator.RGBMatrixOptions:
+		if emul_use:
+			return RGBMatrixEmulator.RGBMatrixOptions()
 		else:
-			self.option = rgbmatrix.RGBMatrixOptions()
-	
-	def set_britness(self, britness: int):
-		self.brightness = britness
+			return rgbmatrix.RGBMatrixOptions()
 
-	def set_panel_size(self, matrix_size: tuple, chain = 1):
-		self.cols = matrix_size[0]
-		self.rows = matrix_size[1]
-		self.chain_length = chain
-	
-	def set_panel_chain_length(self, chain_length: int):
-		self.chain_length = chain_length
+	def load_options(self):
+		with open(self.path, 'r', encoding='utf-8') as file:
+			self.data = json.load(file)
+		self.convert_dict_to_option()
 
-	def set_adafruit_mapping(self):
-		self.hardware_mapping = "adafruit-hat"
-	
-	def set_for_rpi_4(self):
-		self.gpio_slowdown = 4
-		self.disable_hardware_pulsing = True
+	def save_options(self):
+		self.convert_option_to_dict()
+		with open(self.path, 'w') as file:
+			json.dump(self.data, file, indent='\t')
 
-	def get_option(self):
-		self.apply_option()
-		return self.option
+	def set_path(self, path):
+		self.path = path
 	
-	def apply_option(self):
-		self.option.brightness = self.brightness
-		self.option.cols = self.cols
-		self.option.rows = self.rows
-		self.option.chain_length = self.chain_length
-		self.option.hardware_mapping = self.hardware_mapping
-		self.option.gpio_slowdown = self.gpio_slowdown
-		self.option.disable_hardware_pulsing = self.disable_hardware_pulsing
+	def get_options(self) -> RGBMatrixEmulator.RGBMatrixOptions:
+		return self.options
 
-class colors:
+	def convert_dict_to_option(self):
+		self.options.brightness = self.data['brightness']
+		self.options.chain_length = self.data['chain_length']
+		self.options.cols = self.data['cols']
+		self.options.disable_hardware_pulsing = self.data['disable_hardware_pulsing']
+		self.options.gpio_slowdown = self.data['gpio_slowdown']
+		self.options.hardware_mapping = self.data['hardware_mapping']
+		self.options.led_rgb_sequence = self.data['led_rgb_sequence']
+		self.options.multiplexing = self.data['multiplexing']
+		self.options.parallel = self.data['parallel']
+		self.options.pwm_bits = self.data['pwm_bits']
+		self.options.row_address_type = self.data['row_address_type']
+		self.options.rows = self.data['rows']
+
+	def convert_option_to_dict(self):
+		self.data['brightness'] = self.options.brightness
+		self.data['chain_length'] = self.options.chain_length
+		self.data['cols'] = self.options.cols
+		self.data['disable_hardware_pulsing'] = self.options.disable_hardware_pulsing
+		self.data['gpio_slowdown'] = self.options.gpio_slowdown
+		self.data['hardware_mapping'] = self.options.hardware_mapping
+		self.data['led_rgb_sequence'] = self.options.led_rgb_sequence
+		self.data['multiplexing'] = self.options.multiplexing
+		self.data['parallel'] = self.options.parallel
+		self.data['pwm_bits'] = self.options.pwm_bits
+		self.data['row_address_type'] = self.options.row_address_type
+		self.data['rows'] = self.options.rows
+
+	def set_default_options(self):
+		self.options.brightness = 100
+		self.options.chain_length = 1
+		self.options.cols = 32
+		self.options.disable_hardware_pulsing = False
+		self.options.gpio_slowdown = 0
+		self.options.hardware_mapping = 'regular'
+		self.options.led_rgb_sequence = 'RGB'
+		self.options.multiplexing = 0
+		self.options.parallel = 1
+		self.options.pwm_bits = 11
+		self.options.row_address_type = 1
+		self.options.rows = 32
+
+class Colors:
 	black = (0, 0, 0)
 	white = (255, 255, 255)
 	red = (255, 0, 0)
@@ -107,11 +134,25 @@ class colors:
 
 	@staticmethod
 	def random_color():
-		rndcolor = colorsys.hsv_to_rgb(random.random(), 0.6, 1)
-		rndcolor = tuple(map(lambda x: int(x*256), rndcolor))
-		return rndcolor
+		rand_color = colorsys.hsv_to_rgb(random.random(), 0.6, 1)
+		rand_color = tuple(map(lambda x: int(x*256), rand_color))
+		return rand_color
 
 class ImagePanel:
-	def __init__(self, debug):
-		pass
+	def __init__(self, options_file_path = r"matrix_config.json", resolution = (32, 32), emul_use = EMULATE_ABLE):
+		self.options_file = MatrixOptionFile(options_file_path)
+		self.options = self.options_file.get_options()
+		self.matrix = Matrix(self.options)
+		self.gen_new_image(resolution)
+	
+
+	def gen_new_image(self, resolution: tuple):
+		self.set_panel_resolution(self, resolution)
+		self.image = Image.new("RGB", resolution)
+		self.draw = ImageDraw(self.image)
+
+	def set_panel_resolution(self, resolution: tuple):
+		self.resolution = resolution
+
+    
 		
