@@ -26,7 +26,7 @@ except:
 	debug_able = False	
 
 class Matrix():
-	def __init__(self, options, debug_mode):
+	def __init__(self, options, debug_mode=False):
 		self.options = options
 		self.set_debug(debug_mode)
 
@@ -47,7 +47,7 @@ class Matrix():
 		self.matrix.Clear()
 
 class MatrixOption():
-	def __init__(self, debug_mode):
+	def __init__(self, debug_mode=False):
 		self.set_debug(debug_mode)
 		self.brightness = 100
 		self.cols = 32
