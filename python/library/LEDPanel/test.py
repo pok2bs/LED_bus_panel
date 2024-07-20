@@ -3,12 +3,12 @@ from PIL import ImageDraw
 import time
 from LEDPanel import Matrix, MatrixOption
 # Configuration for the matrix
-optioner = MatrixOption(debug_mode=True)
+optioner = MatrixOption(debug_mode=False)
 optioner.set_panel_size((64, 32))
 optioner.set_for_rpi_4()
 options = optioner.get_option()
 
-matrix = Matrix(options=options, debug_mode=True)
+matrix = Matrix(options=options, debug_mode=False)
 # RGB example w/graphics prims.
 # Note, only "RGB" mode is supported currently.
 image = Image.new("RGB", (32, 32))  # Can be larger than matrix if wanted!!
