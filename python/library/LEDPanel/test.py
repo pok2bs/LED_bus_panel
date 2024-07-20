@@ -1,7 +1,6 @@
 from PIL import Image
 from PIL import ImageDraw
 import time
-from RGBMatrixEmulator import RGBMatrix, RGBMatrixOptions
 from python.library.LEDPanel.LEDPanel import Matrix, MatrixOption
 # Configuration for the matrix
 optioner = MatrixOption()
