@@ -42,6 +42,22 @@ class BusPanel:
 				bus_img[bus_str[count:count+1]] = bus_arr[:15,start:i+1]
 				start = i + 1
 				count = count + 1
+
+		bus_img.update({'-': np.array([[0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+       [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]], dtype=np.uint8)})
 		return bus_img
 
 	@staticmethod
@@ -63,7 +79,6 @@ class BusPanel:
 		if align == 'right':
 			width = self.get_text_width(text, self.font)
 			x -= width
-
 		for i in text:
 			if i in font:
 				char = font[i]
@@ -94,6 +109,9 @@ class BusPanel:
 			x = 3
 		elif column == 1:
 			x = 99
+		else:
+			return
+
 		if time >= 0:
 			time_str = '{}분'.format(time)
 			time_color = self.cyan
@@ -106,10 +124,11 @@ class BusPanel:
 
 		offset = 0
 		for i in line:
-			if i in '0123456789':
+			if i in '0123456789-':
 				color = self.white
 			else:
 				color = self.cyan
+
 			self.print_text(str(i), self.font, color, (x+offset, y))
 			offset += self.get_text_width(str(i), self.font)
 			
