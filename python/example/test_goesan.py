@@ -10,15 +10,16 @@ nodeid = "TSB280000840"
 while True:
     bus_data = ArriveInfoReceiver(key=key, citycode=cityCode, nodeid=nodeid)
 
+    buspanel.clear()
+    panel.clear()
+    
     datas = bus_data.getStopArriveInfo()
     if type(datas) == dict:
         datas = [datas]
     if datas == 'api_error':
         time.sleep(30)
         continue
-
-    buspanel.clear()
-    panel.clear()
+    
     count = 0
     for data in datas:
         arrive_time = int(int(data['arrtime'])/60)
