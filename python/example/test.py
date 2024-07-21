@@ -1,5 +1,5 @@
 import bus
-from LEDPanel.LEDPanel import ImagePanel
+from LEDPanel import ImagePanel
 
 buspanel = bus.BusPanel()
 panel = ImagePanel(resolution=(192, 64))
