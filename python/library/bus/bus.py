@@ -148,17 +148,8 @@ class BusPanel:
 		self.draw.rectangle([(0, 48), (191, 63)], outline=self.yellow, fill=self.black)
 		self.print_text('곧도착:', self.font, self.white, (2, 49))
 
-	def add_arrive(self, line, density=0):
+	def add_arrive(self, line):
 		y = 49
-		if density == 0:
-			density_text = '여유'
-			density_color = self.green
-		elif density == 1:
-			density_text = '보통'
-			density_color = self.orange
-		elif density == 2:
-			density_text = '혼잡'
-			density_color = self.red
 		if self.arrive_first == True:
 			self.arrive_first = False
 		else:
@@ -166,14 +157,6 @@ class BusPanel:
 			self.arrive_x += self.get_text_width(',', self.font)
 		self.print_text(str(line), self.font, self.white, (self.arrive_x, y))
 		self.arrive_x += self.get_text_width(str(line), self.font)
-
-		self.arrive_x += 0
-		self.print_text('(', self.font, self.yellow, (self.arrive_x, y))
-		self.arrive_x += self.get_text_width('(', self.font)
-		self.print_text(density_text, self.font, density_color, (self.arrive_x, y))
-		self.arrive_x += self.get_text_width(density_text, self.font)
-		self.print_text(')', self.font, self.yellow, (self.arrive_x, y))
-		self.arrive_x += self.get_text_width(')', self.font)
 
 		self.arrive_x -= 3
 		self.draw.rectangle([(0, 48), (191, 63)], outline=self.yellow)
@@ -184,6 +167,8 @@ class BusPanel:
 	def clear(self):
 		self.img = Image.new("RGB", (192, 64), self.black)
 		self.draw = ImageDraw.Draw(self.img)
+
+		self.arrive_first = True
 
 		self.draw.line([(96, 0), (96, 48)], self.yellow)
 		self.draw.rectangle([(0, 48), (191, 63)], outline=self.yellow)
