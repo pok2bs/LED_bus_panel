@@ -5,8 +5,8 @@ from info_reciver import ArriveInfoReceiver
 buspanel = bus.BusPanel()
 panel = ImagePanel(resolution=(192, 64))
 key = 'eJO+CaSYpebfSPJI3R0BKMU9Ua2/LAVpnlqCZxlKH6XzKHL+eKC9CY6xrBJQA4croYCZ/6OFZEU2d3elBLsIbg=='
-cityCode = 21
-nodeid = "BSB505850000"
+cityCode = 33360
+nodeid = "TSB280000104"
 while True:
     bus_data = ArriveInfoReceiver(key=key, citycode=cityCode, nodeid=nodeid)
 
