@@ -142,17 +142,35 @@ class ImagePanel:
 	def __init__(self, options_file_path = r"matrix_config.json", resolution = (32, 32), emul_use = EMULATE_ABLE):
 		self.options_file = MatrixOptionFile(options_file_path)
 		self.options = self.options_file.get_options()
+		self.options.parallel
 		self.matrix = Matrix(self.options)
 		self.gen_new_image(resolution)
-	
 
 	def gen_new_image(self, resolution: tuple):
-		self.set_panel_resolution(self, resolution)
+		self.set_panel_resolution(resolution)
 		self.image = Image.new("RGB", resolution)
-		self.draw = ImageDraw(self.image)
+		self.draw = ImageDraw.Draw(self.image)
 
 	def set_panel_resolution(self, resolution: tuple):
 		self.resolution = resolution
+
+	def draw_image(self, image, offset):
+		self.image.paste(image, offset)
+		self.print()
+
+	def get_matrix_size(self) -> tuple:
+		return (self.options.cols * self.options.chain_length, self.options.rows * self.options.parallel)
+
+	def print(self):
+		size = self.get_matrix_size()
+		if self.resolution[1] > size[1] and self.resolution[0] * self.resolution[1] == size[0] * size[1]:
+			output = Image.new("RGB", (384, 32))
+			output.paste(self.image.crop((0, 0, 192, 32)), (192, 0))
+			output.paste(self.image.crop((0, 32, 192, 64)).rotate(180), (0, 0))
+			self.matrix.draw_image(output, (0,0))
+
+	def clear(self):
+		self.image = Image.new("RGB", self.resolution)
 
     
 		

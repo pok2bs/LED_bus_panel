@@ -1,6 +1,6 @@
 {
 	"brightness": 100,
-	"chain_length": 3,
+	"chain_length": 6,
 	"cols": 64,
 	"disable_hardware_pulsing": true,
 	"gpio_slowdown": 4,
@@ -9,6 +9,6 @@
 	"multiplexing": 0,
 	"parallel": 1,
 	"pwm_bits": 11,
-	"row_address_type": 1,
+	"row_address_type": 0,
 	"rows": 32
 }
