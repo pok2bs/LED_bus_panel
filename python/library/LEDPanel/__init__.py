@@ -1,1 +1,1 @@
-from .LEDPanel import Panel, colors
+from .LEDPanel import ImagePanel, Colors, Matrix, MatrixOptionFile
