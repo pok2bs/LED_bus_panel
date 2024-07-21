@@ -28,9 +28,9 @@ class Matrix():
 
 	def select_matrix_module(self, emul_use):
 		if emul_use:
-			return RGBMatrixEmulator.RGBMatrix(self.options)
+			return RGBMatrixEmulator.RGBMatrix(options=self.options)
 		else:
-			return RGBMatrix(self.options)
+			return RGBMatrix(option=self.options)
 
 	def set_image(self, image, offset = tuple):
 		self.matrix.SetImage(image, offset_x=offset[0], offset_y=offset[1])
