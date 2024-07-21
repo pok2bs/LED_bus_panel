@@ -19,7 +19,7 @@ while True:
     if datas == 'api_error':
         time.sleep(30)
         continue
-    
+    datas = sorted(datas, key=lambda x: -x['arrtime'])
     count = 0
     for data in datas:
         arrive_time = int(int(data['arrtime'])/60)
