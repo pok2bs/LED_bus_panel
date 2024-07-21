@@ -11,7 +11,7 @@ except:
 	sys.stderr.write('NumPy is not installed.\n')
 
 try:
-	import rgbmatrix
+	from rgbmatrix import RGBMatrix, RGBMatrixOptions
 except:
 	sys.stderr.write('RGBMatrix library is not installed.\n')
 
@@ -24,18 +24,13 @@ except:
 class Matrix():
 	def __init__(self, options, emul_use=EMULATE_ABLE):
 		self.options = options
-		print(self.options.cols)
-		self.matrix = rgbmatrix.RGBMatrix(rgbmatrix.RGBMatrixOptions())
+		self.matrix = self.select_matrix_module(emul_use)
 
 	def select_matrix_module(self, emul_use):
 		if emul_use:
-			self.matrix =  RGBMatrixEmulator.RGBMatrix(self.options)
+			return RGBMatrixEmulator.RGBMatrix(self.options)
 		else:
-			print(1)
-			print(type(self.options))
-			print(self.options.cols)
-			self.matrix =  rgbmatrix.RGBMatrix(self.options)
-			print(2)
+			return RGBMatrix(self.options)
 
 	def set_image(self, image, offset = tuple):
 		self.matrix.SetImage(image, offset_x=offset[0], offset_y=offset[1])
@@ -66,7 +61,7 @@ class MatrixOptionFile():
 		if emul_use:
 			return RGBMatrixEmulator.RGBMatrixOptions()
 		else:
-			return rgbmatrix.RGBMatrixOptions()
+			return RGBMatrixOptions()
 
 	def load_options(self):
 		with open(self.path, 'r', encoding='utf-8') as file:
