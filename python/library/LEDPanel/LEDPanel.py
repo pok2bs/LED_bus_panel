@@ -25,7 +25,7 @@ class Matrix():
 	def __init__(self, options, emul_use=EMULATE_ABLE):
 		self.options = options
 		print(self.options.cols)
-		self.matrix = rgbmatrix.RGBMatrix(options)
+		self.matrix = rgbmatrix.RGBMatrix(rgbmatrix.RGBMatrixOptions())
 
 	def select_matrix_module(self, emul_use):
 		if emul_use:
